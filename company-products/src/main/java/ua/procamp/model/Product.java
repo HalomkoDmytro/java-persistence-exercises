@@ -1,8 +1,18 @@
 package ua.procamp.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * todo:
@@ -21,8 +31,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Entity
+@Table(name = "product")
+@EqualsAndHashCode(of = "id")
 public class Product {
+    @Id
+    @GeneratedValue
     private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
     private Company company;
+
 }
